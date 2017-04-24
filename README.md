@@ -1,7 +1,6 @@
 # -CCP-Data-Engineer---preparation
 Self preparatory material -- ( Do not test on your production environment until you test... :) )
 
-
 Syllabus for the exam..
 
 Data Ingest
@@ -33,11 +32,13 @@ Write a query that produces ranked or sorted data
 Write a query that joins multiple data sets
 Read and/or create a Hive or an HCatalog table from existing data in HDFS
 Workflow
+
 The ability to create and execute various jobs and actions that move data towards greater value and use in a system. This includes the following skills:
 
 Create and execute a linear workflow with actions that include Hadoop jobs, Hive jobs, Pig jobs, custom actions, etc.
 Create and execute a branching workflow with actions that include Hadoop jobs, Hive jobs, Pig jobs, custom action, etc.
 Orchestrate a workflow to execute regularly at predefined times, including workflows that have data dependencies
+
 What should you expect?
 You are given five to eight customer problems each with a unique, large data set, a CDH cluster, and four hours. For each problem, you must implement a technical solution with a high degree of precision that meets all the requirements. You may use any tool or combination of tools on the cluster (see list below) -- you get to pick the tool(s) that are right for the job. You must possess enough industry knowledge to analyze the problem and arrive at an optimal approach given the time allowed. You need to know what you should do and then do it on a live cluster under rigorous conditions, including a time limit and while being watched by a proctor.
 
@@ -49,5 +50,4 @@ The CCP Data Engineer exam was created to identify talented data professioanls l
 
  GET STARTED
 Have more questions? Check out our Certification FAQ
-
 Exam delivery and cluster information
