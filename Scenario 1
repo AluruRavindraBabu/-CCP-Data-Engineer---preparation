@@ -1,0 +1,143 @@
+Problem statement:
+
+1. Connect RDBMS and check the content of the tables. 
+2. choose one table and import to hdfs without specifying the directory name
+3. import the same table to hdfs under a directory  "<tablename>_target"
+4. import the same table to hdfs under a warehouse directory "categories_warehouse"
+
+(These scenarios were tested under 7 Node cluster (labs.itversiyt.com) , Cloudera, Hortonworks and Oracle Bigdatalite VMs.)
+use : "https://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html"   for the documenation. 
+
+Oracle as RDBMS:
+
+1. I have choosen EMPLOYEES table from HR 
+ 
+ sqoop import \
+--connect "jdbc:oracle:thin:@//localhost:1521/orcl" \
+ --username hr  --P  \
+ --table EMPLOYEES
+ 
+ (Please see when use table name  EMPLOYEES with small letter is not working ... When I use Captial letters it is working.) 
+ 
+to verify the same us the below 
+ 
+hadoop fs -ls
+Found 13 items
+drwxr-xr-x   - oracle oracle          0 2017-04-14 21:33 .sparkStaging
+drwx------   - oracle oracle          0 2017-05-07 14:20 .staging
+drwxr-xr-x   - oracle oracle          0 2017-05-07 14:20 EMPLOYEES
+
+To verify the data 
+ SQL> select count(1) from employees;
+
+  COUNT(1)
+----------
+       107
+
+[oracle@bigdatalite ~]$ hadoop fs -ls EMPLOYEES
+Found 5 items
+-rw-r--r--   1 oracle oracle          0 2017-05-07 14:20 EMPLOYEES/_SUCCESS
+-rw-r--r--   1 oracle oracle       2339 2017-05-07 14:20 EMPLOYEES/part-m-00000
+-rw-r--r--   1 oracle oracle       2275 2017-05-07 14:20 EMPLOYEES/part-m-00001
+-rw-r--r--   1 oracle oracle       2432 2017-05-07 14:20 EMPLOYEES/part-m-00002
+-rw-r--r--   1 oracle oracle       2337 2017-05-07 14:20 EMPLOYEES/part-m-00003
+[oracle@bigdatalite ~]$ hadoop fs -cat EMPLOYEES/part* | wc -l
+107
+[oracle@bigdatalite ~]$ 
+
+
+
+ 
+Mysql as RDBMS:
+describe orders;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| order_id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| order_date        | datetime    | NO   |     | NULL    |                |
+| order_customer_id | int(11)     | NO   |     | NULL    |                |
+| order_status      | varchar(45) | NO   |     | NULL    |                |
++-------------------+-------------+------+-----+---------+----------------+
+
+sqoop import  \
+--connect "jdbc:mysql://nn01.itversity.com/retail_db" \
+--username retail_dba \
+--password itversity \
+--table orders
+
+to verify:
+
+[vvmtraining@gw01 ~]$ hadoop fs -ls /user/vvmtraining
+Found 13 items
+drwx------   - vvmtraining hdfs          0 2017-05-07 14:00 /user/vvmtraining/.Trash
+drwxr-xr-x   - vvmtraining hdfs          0 2017-04-28 04:13 /user/vvmtraining/.sparkStaging
+drwx------   - vvmtraining hdfs          0 2017-05-07 14:37 /user/vvmtraining/.staging
+drwxr-xr-x   - vvmtraining hdfs          0 2017-05-01 15:20 /user/vvmtraining/Employee
+drwxr-xr-x   - vvmtraining hdfs          0 2017-04-13 15:21 /user/vvmtraining/_sqoop
+drwxr-xr-x   - vvmtraining hdfs          0 2017-05-02 15:35 /user/vvmtraining/cloudera
+drwxr-xr-x   - vvmtraining hdfs          0 2017-05-07 08:38 /user/vvmtraining/demo
+drwx------   - vvmtraining hdfs          0 2017-05-07 12:06 /user/vvmtraining/hive
+drwxr-xr-x   - vvmtraining hdfs          0 2017-05-07 14:37 /user/vvmtraining/orders
+drwxr-xr-x   - vvmtraining hdfs          0 2017-05-05 17:53 /user/vvmtraining/ravi
+drwxr-xr-x   - vvmtraining hdfs          0 2017-05-03 15:32 /user/vvmtraining/ravispark
+drwx------   - vvmtraining hdfs          0 2017-05-07 06:14 /user/vvmtraining/retail
+drwxr-xr-x   - vvmtraining hdfs          0 2017-03-21 16:35 /user/vvmtraining/vinay
+[vvmtraining@gw01 ~]$ hadoop fs -ls /user/vvmtraining/orders
+Found 5 items
+-rw-r--r--   3 vvmtraining hdfs          0 2017-05-07 14:37 /user/vvmtraining/orders/_SUCCESS
+-rw-r--r--   3 vvmtraining hdfs     741614 2017-05-07 14:37 /user/vvmtraining/orders/part-m-00000
+-rw-r--r--   3 vvmtraining hdfs     753022 2017-05-07 14:37 /user/vvmtraining/orders/part-m-00001
+-rw-r--r--   3 vvmtraining hdfs     752368 2017-05-07 14:37 /user/vvmtraining/orders/part-m-00002
+-rw-r--r--   3 vvmtraining hdfs     752940 2017-05-07 14:37 /user/vvmtraining/orders/part-m-00003
+[vvmtraining@gw01 ~]$ hadoop fs -cat /user/vvmtraining/orders/part* | wc -l
+68883
+
+
+
+mysql> select count(1) from orders;
++----------+
+| count(1) |
++----------+
+|    68883 |
++----------+
+1 row in set (0.01 sec)
+
+
+
+3. import the same table to hdfs under a directory  "<tablename>_target" :
+oracle: (test the result as shown above)
+sqoop import \
+--connect "jdbc:oracle:thin:@//localhost:1521/orcl" \
+ --username hr  --P  \
+ --table EMPLOYEES \
+ --target-dir "/user/vvmtraining/employees_target"
+ 
+ mysql: 
+ 
+ sqoop import  \
+--connect "jdbc:mysql://nn01.itversity.com/retail_db" \
+--username retail_dba \
+--password itversity \
+--table orders \
+ --target-dir "/user/vvmtraining/orders_target"
+ 
+ 
+4. import the same table to hdfs under a warehouse directory "categories_warehouse"
+
+oracle: 
+sqoop import \
+--connect "jdbc:oracle:thin:@//localhost:1521/orcl" \
+ --username hr  --P  \
+ --table EMPLOYEES \
+ --warehouse-dir "/user/vvmtraining/employees_warehouse"
+
+mysql: 
+sqoop import  \
+--connect "jdbc:mysql://nn01.itversity.com/retail_db" \
+--username retail_dba \
+--password itversity \
+--table orders \
+ --warehouse-dir "/user/vvmtraining/orders_warehouse"
+ 
+ 
+
