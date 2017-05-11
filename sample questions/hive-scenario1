@@ -1,0 +1,27 @@
+Sample Exam Question
+
+LoudAcre Mobile is a mobile phone service provider that is moving a portion of their customer analytics workload to Hadoop. Before they can use their customer data, they want you to clean it and make it consistent.
+
+Errors were found while looking at the customer records. Unfortunately, different input methods wrote date fields in different formats.  Your task is to standardize these date fields into a consistent format.
+
+Data Description
+
+The Hive metastore contains a database named problem1 that contains a table named customer. The customer table contains 90 million customer records (90,000,000), each with a birthday field.
+
+Sample data (birthday is in bold)
+1904287,Christopher Rodriquez,Jan 11, 2003
+96391595,Thomas Stewart,6/17/1969
+2236067,John Nelson,08/22/54
+Output Requirements
+
+Create a new table named solution in the problem1 database of the Hive metastore
+Your solution table must have its data stored in the HDFS directory /user/cert/problem1/solution
+Your solution table must have exactly the same columns as the customer table in the same order, as well as keeping the existing file format
+For every row in the solution table, replace the contents of the birthday field with a date string in “MM/DD/YY” format.
+
+MM is the zero-padded month (01-12),
+DD is the zero-padded day (01-31),
+YY is the zero-padded 2-digit year (00-99)
+
+
+Solution: 
