@@ -1,5 +1,5 @@
 # -CCP-Data-Engineer---preparation
-Self preparatory material -- ( Do not test on your production environment until you test... :) )
+Self preparatory material -- ( These solutions tested on 4 node Hortonwork cluster on my laptop. Do not test on your production environment until you test... :) )
 
 Syllabus for the exam..
 
