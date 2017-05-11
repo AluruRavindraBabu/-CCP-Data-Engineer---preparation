@@ -1,0 +1,13 @@
+The JsonSerDe for JSON files is available in Hive 0.12 and later.
+
+In some distributions, a reference to hive-hcatalog-core.jar is required.
+ADD JAR /usr/lib/hive-hcatalog/lib/hive-hcatalog-core.jar;
+
+CREATE TABLE my_table(a string, b bigint, ...)
+ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+STORED AS TEXTFILE;
+
+The JsonSerDe was moved to Hive from HCatalog and before it was in hive-contrib project. It was added to the Hive distribution by HIVE-4895.
+An Amazon SerDe is available at s3://elasticmapreduce/samples/hive-ads/libs/jsonserde.jar for releases prior to 0.12.0.
+
+The JsonSerDe for JSON files is available in Hive 0.12 and later.
