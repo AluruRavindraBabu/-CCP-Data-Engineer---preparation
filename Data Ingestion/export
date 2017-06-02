@@ -21,3 +21,10 @@ sqoop export \
    --export-dir '/user/cloudera/p11/employees/avro/salary' \
    --table sa \
    --m   
+
+
+
+
+
+
+https://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html#_purpose_4
