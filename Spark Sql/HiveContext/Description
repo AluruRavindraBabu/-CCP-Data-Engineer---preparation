@@ -1,1 +1,2 @@
 
+Spark SQL has provided compatibility with Hive which called HiveContext built on top of SparkSQL
