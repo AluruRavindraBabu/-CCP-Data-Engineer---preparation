@@ -1,7 +1,20 @@
-Spark Sql component introduced in  spark 1.0
+Spark Sql component introduced in  spark 1.0 .. Spark SQL is a Spark module for processing a structured data. 
 
 
-Spark SQL is a Spark module for processing a structured data. 
+Spark SQL uses a programming abstraction called DataFrame. Initial versions of Spark till 1.2 the dataframe named as SchmaRDD
+
+DataFrame is equivalent to a database table, but provides
+much finer level of optimization. The DataFrame API also ensures that Spark's performance is
+consistent across different language bindings.
+
+
+DataFrames also transparently load from various data sources, such as Hive tables, Parquet
+files, JSON files, and external databases using JDBC.
+
+
+There are two ways to associate schema with RDDs to create DataFrames. The easy way is to leverage Scala case classes,
+another way to programmatically specify schema for advanced needs
+
 
 Understanding the Catalyst optimizer
 Creating HiveContext
