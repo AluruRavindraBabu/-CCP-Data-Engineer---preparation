@@ -1,0 +1,54 @@
+Summary, Tips, Hints  -- From Coursera
+If you had trouble with any of the pre-install steps, and this document does not help, please ask over on the discussion group.
+
+Remember to fetch and install Java 8, not Java 9.
+
+Remember to get 64-bit versions of everything. (32-bit will work, but you will only have 2GB, which will restrict the size of data sets you can work on, and how many models you can keep in H2O at one time.)
+
+Linux Commands
+These were the Linux commands shown (for Ubuntu 16):
+
+# For Java8
+
+sudo apt install openjdk-8-jdk
+
+# For R
+
+sudo apt install r-base libcurl4-openssl-dev
+
+# For RStudio (change the * to match the deb file you downloaded)
+
+# To test RStudio look for it in the menus.
+
+sudo apt install libjpeg62
+
+sudo dpkg -i rstudio-*-amd64.deb
+
+# For Python, pip and Jupyter
+
+sudo apt install python3-pip
+
+pip3 install jupyter
+
+# To test Jupyter
+
+jupyter-notebook
+
+Windows
+Remember to get Java 8, not Java 9, and a 64-bit version.
+
+When installing each file the defaults were accepted except:
+
+In the Java install I checked the checkbox to update the path
+In R I told it not to bother installing 32-bit versions
+To start Jupyter, open a terminal and type:
+
+jupyter-notebook
+
+More Python Packages
+You could take this opportunity to install some other packages that will come in useful:
+
+
+
+(Remember to use "pip3" instead of "pip" on some versions of Linux, where both Python 2 and Python 3 are installed.)
+
