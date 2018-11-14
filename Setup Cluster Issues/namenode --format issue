@@ -1,0 +1,8 @@
+ISSUE:
+
+hadoop admin@hadoopadmin-VirtualBox:/etc/hadoop$ bin/hdfs namenode -format 
+WARNING: /etc/hadoop/logs does not exist. Creating. mkdir: cannot create directory ‘/etc/hadoop/logs’: 
+Permission denied ERROR: Unable to create /etc/hadoop/logs. Aborting.
+
+Resolution:
+sudo chown -R <username where hadoop running> /etc/hadoop/
