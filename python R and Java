@@ -49,6 +49,69 @@ More Python Packages
 You could take this opportunity to install some other packages that will come in useful:
 
 
+#########################################
+#Java 11 Installation
+############################################
+
+
+Install Oracle JDKPermalink
+
+The Linux Uprising Oracle Java PPA uses packages that include install scripts to install the Oracle JDK.
+
+#Update your system:
+
+    sudo apt update && sudo apt upgrade
+
+#Check that SHA256 checksum of the binary you downloaded matches the checksum:
+
+#cd Downloads/
+    sha256sum jdk-11.0.5_linux-x64*
+
+#Create a /var/cache/oracle-jdk11-installer-local/ folder, and copy the Oracle JDK 11 .tar.gz from Downloads folder to this folder.
+
+    sudo mkdir -p /var/cache/oracle-jdk11-installer-local/
+    sudo cp jdk-11.0.5_linux-x64_bin.tar.gz /var/cache/oracle-jdk11-installer-local/
+
+#Add the PPA to Ubuntu. Apt will automatically refresh the package cache.
+
+    sudo add-apt-repository ppa:linuxuprising/java
+    sudo apt-get update
+
+#Install the oracle JDK.
+
+    sudo apt install oracle-java11-installer-local
+
+    If you want Oracle JDK as the system default, install oracle-java11-set-default-local:
+
+    sudo apt install oracle-java11-set-default-local
+
+    Check that the install was successful with the following command:
+
+    java --version
+
+      
+    root@ubuntu:~# java --version
+    java version "11.0.5" 2019-10-15 LTS
+    Java(TM) SE Runtime Environment 18.9 (build 11.0.5+10-LTS)
+    Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.5+10-LTS, mixed mode)
+
+    Reload /etc/profile or log out of your system and back in to set the Java environment variables:
+
+    source /etc/profile
+
+      
+    root@ubuntu:~# echo $JAVA_HOME
+    /usr/lib/jvm/java-11-oracle
+
+
+
+
+
+
+
+
+######################################################
+
 
 (Remember to use "pip3" instead of "pip" on some versions of Linux, where both Python 2 and Python 3 are installed.)
 
